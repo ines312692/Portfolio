@@ -7,288 +7,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        :root {
-            --primary-pink: #ff69b4;
-            --secondary-pink: #ffb6c1;
-            --accent-pink: #ff1493;
-
-            --dark-bg: #0a0a0a;
-            --dark-secondary: #1a1a1a;
-            --dark-tertiary: #2a2a2a;
-
-            --white: #ffffff;
-            --gray-light: #cccccc;
-
-            --gradient-pink: linear-gradient(135deg, #ff69b4, #ff1493);
-            --gradient-dark: linear-gradient(135deg, #1a1a1a, #2a2a2a);
-        }
-
-        /* Light theme overrides */
-        :root[data-theme="light"] {
-            --dark-bg: #f7f7f8;
-            --dark-secondary: #ffffff;
-            --dark-tertiary: #efeff4;
-
-            /* Texte principal devient sombre via la variable --white réutilisée partout */
-            --white: #111111;
-            --gray-light: #555555;
-
-            --gradient-dark: linear-gradient(135deg, #ffffff, #efeff4);
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--dark-bg);
-            color: var(--white);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(10, 10, 10, 0.9);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 1rem 0;
-            transition: all 0.3s ease;
-        }
-        :root[data-theme="light"] nav {
-            background: rgba(255, 255, 255, 0.85);
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-        }
-
-        nav.scrolled {
-            background: rgba(10, 10, 10, 0.95);
-            box-shadow: 0 2px 20px rgba(255, 105, 180, 0.1);
-        }
-        :root[data-theme="light"] nav.scrolled {
-            background: rgba(255,255,255,0.95);
-            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
-        }
-
-        .nav-container { display: flex; justify-content: space-between; align-items: center; }
-        .logo {
-            font-size: 1.5rem; font-weight: 700;
-            background: var(--gradient-pink);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-        }
-
-        .nav-actions { display: flex; align-items: center; gap: 1rem; }
-
-        .nav-links { display: flex; list-style: none; gap: 2rem; }
-        .nav-links a {
-            color: var(--white); text-decoration: none; font-weight: 500;
-            transition: all 0.3s ease; position: relative;
-        }
-        .nav-links a:hover { color: var(--primary-pink); transform: translateY(-2px); }
-        .nav-links a::after {
-            content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px;
-            background: var(--gradient-pink); transition: width 0.3s ease;
-        }
-        .nav-links a:hover::after { width: 100%; }
-
-        .theme-toggle {
-            border: 1px solid rgba(255, 105, 180, 0.35);
-            background: var(--dark-tertiary);
-            color: var(--primary-pink);
-            border-radius: 999px;
-            padding: 0.5rem 0.8rem;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
-        }
-        :root[data-theme="light"] .theme-toggle {
-            background: #ffffff;
-        }
-        .theme-toggle:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(255, 105, 180, 0.2); }
-
-        /* Hero Section */
-        .hero { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; }
-        .hero::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 30% 70%, rgba(255, 105, 180, 0.1), transparent),
-            radial-gradient(circle at 70% 30%, rgba(255, 20, 147, 0.1), transparent);
-            z-index: -1;
-        }
-        .hero-content { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; animation: fadeInUp 1s ease; }
-
-        .hero-text h1 {
-            font-size: 3.5rem; font-weight: 700; margin-bottom: 1rem;
-            background: var(--gradient-pink);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-            animation: slideInLeft 1s ease 0.2s both;
-        }
-        .hero-text .subtitle { font-size: 1.3rem; color: var(--gray-light); margin-bottom: 2rem; animation: slideInLeft 1s ease 0.4s both; }
-        .hero-text p { font-size: 1.1rem; margin-bottom: 2rem; animation: slideInLeft 1s ease 0.6s both; }
-
-        .cta-buttons { display: flex; gap: 1rem; animation: slideInLeft 1s ease 0.8s both; }
-        .btn { padding: 12px 24px; border: none; border-radius: 30px; font-weight: 600; text-decoration: none; transition: all 0.3s ease; position: relative; overflow: hidden; }
-        .btn-primary { background: var(--gradient-pink); color: var(--white); }
-        .btn-secondary { background: transparent; color: var(--primary-pink); border: 2px solid var(--primary-pink); }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(255, 105, 180, 0.3); }
-
-        .hero-visual { position: relative; animation: slideInRight 1s ease 0.5s both; }
-        .profile-card {
-            background: var(--gradient-dark);
-            border-radius: 20px; padding: 2rem;
-            box-shadow: 0 20px 40px rgba(255, 105, 180, 0.1);
-            border: 1px solid rgba(255, 105, 180, 0.2);
-            position: relative; overflow: hidden; text-align: center;
-        }
-        .profile-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(255, 105, 180, 0.1), transparent);
-            transform: translateX(-100%); animation: shimmer 2s infinite;
-        }
-        @keyframes shimmer { 100% { transform: translateX(100%); } }
-
-        .profile-visual-icon {
-            font-size: 4rem; color: var(--primary-pink);
-            margin: 1rem 0 0.5rem 0;
-        }
-        .profile-visual-text { color: var(--gray-light); }
-
-        /* Section Styles */
-        .section { padding: 5rem 0; position: relative; }
-        .section-title {
-            text-align: center; font-size: 2.5rem; font-weight: 700; margin-bottom: 3rem;
-            background: var(--gradient-pink);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-            animation: fadeInUp 1s ease;
-        }
-        .section-title::after {
-            content: ''; display: block; width: 100px; height: 4px;
-            background: var(--gradient-pink); margin: 1rem auto; border-radius: 2px;
-        }
-
-        /* Skills: icons + labels */
-        .skills-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem; margin-top: 3rem;
-        }
-        .skill-category {
-            background: var(--gradient-dark); border-radius: 15px; padding: 2rem;
-            border: 1px solid rgba(255, 105, 180, 0.2); transition: all 0.3s ease; animation: fadeInUp 1s ease;
-        }
-        .skill-category:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(255, 105, 180, 0.2); }
-        .skill-category h3 { color: var(--primary-pink); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.5rem; }
-
-        .skill-icons, .tech-icons {
-            display: flex; flex-wrap: wrap; gap: 0.6rem;
-        }
-        .skill-icon, .tech-icon {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            background: rgba(255, 105, 180, 0.08);
-            color: var(--white);
-            padding: 0.45rem 0.7rem;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 105, 180, 0.25);
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
-            line-height: 1;
-        }
-        .skill-icon:hover, .tech-icon:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 8px 20px rgba(255, 105, 180, 0.2); }
-        .skill-icon i, .tech-icon i { font-size: 1.3rem; }
-
-        /* Inversion pour logos sombres sur fond sombre (Express, Next.js, Flask, etc.) */
-        .icon-invert-dark { filter: invert(1) brightness(1.6); }
-        :root[data-theme="light"] .icon-invert-dark { filter: none; }
-
-        /* Projects */
-        .projects-grid { display: grid; gap: 3rem; margin-top: 3rem; }
-        .project-card {
-            background: var(--gradient-dark); border-radius: 20px; padding: 2.5rem;
-            border: 1px solid rgba(255, 105, 180, 0.2); transition: all 0.3s ease;
-            position: relative; overflow: hidden; animation: fadeInUp 1s ease;
-        }
-        .project-card:hover { transform: translateY(-10px); box-shadow: 0 30px 60px rgba(255, 105, 180, 0.2); }
-        .project-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; }
-        .project-title { font-size: 1.5rem; font-weight: 600; color: var(--primary-pink); margin-bottom: 0.5rem; }
-        .project-company { color: var(--gray-light); font-size: 0.9rem; }
-        .project-description ul { list-style: none; padding: 0; }
-        .project-description li { margin-bottom: 0.8rem; padding-left: 1.5rem; position: relative; }
-        .project-description li::before { content: '▶'; color: var(--primary-pink); position: absolute; left: 0; }
-
-        /* Certifications */
-        .certifications-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem; margin-top: 3rem;
-        }
-        .certification-card {
-            background: var(--gradient-dark); border-radius: 15px; padding: 2rem; text-align: center;
-            border: 1px solid rgba(255, 105, 180, 0.2); transition: all 0.3s ease; animation: fadeInUp 1s ease;
-        }
-        .certification-card:hover { transform: translateY(-10px) scale(1.05); box-shadow: 0 20px 40px rgba(255, 105, 180, 0.3); }
-        .cert-badge {
-            width: 80px; height: 80px; background: var(--gradient-pink); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem; color: var(--white);
-        }
-        .cert-title { font-weight: 600; margin-bottom: 0.5rem; color: var(--primary-pink); }
-        .cert-provider { color: var(--gray-light); font-size: 0.9rem; }
-
-        /* Contact Section (en bas) */
-        .contact-section .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        .contact-card {
-            background: var(--gradient-dark);
-            border: 1px solid rgba(255, 105, 180, 0.2);
-            border-radius: 14px;
-            padding: 1rem 1.2rem;
-            display: flex; align-items: center; gap: 0.8rem;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .contact-card:hover { transform: translateY(-4px); box-shadow: 0 14px 28px rgba(255, 105, 180, 0.18); }
-        .contact-card i { color: var(--primary-pink); font-size: 1.2rem; width: 22px; }
-        .contact-card a { color: var(--white); text-decoration: none; }
-        .contact-card span { color: var(--white); }
-
-        /* Footer */
-        footer {
-            background: var(--dark-secondary);
-            padding: 3rem 0;
-            text-align: center;
-            border-top: 1px solid rgba(255, 105, 180, 0.2);
-        }
-        .social-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1rem; }
-        .social-links a { color: var(--primary-pink); font-size: 1.5rem; transition: all 0.3s ease; }
-        .social-links a:hover { color: var(--accent-pink); transform: translateY(-5px) scale(1.2); }
-        .footer-copy { color: var(--gray-light); font-size: 0.9rem; }
-
-        /* Animations */
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes slideInLeft { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: translateX(0); } }
-        @keyframes slideInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
-        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
-        .floating { animation: float 3s ease-in-out infinite; }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero-content { grid-template-columns: 1fr; text-align: center; }
-            .hero-text h1 { font-size: 2.5rem; }
-            .nav-links { display: none; }
-            .skills-grid, .certifications-grid { grid-template-columns: 1fr; }
-            .cta-buttons { flex-direction: column; align-items: center; }
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--dark-bg); }
-        ::-webkit-scrollbar-thumb { background: var(--gradient-pink); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--accent-pink); }
-    </style>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
 <!-- Navigation -->
@@ -299,16 +18,30 @@
             <div class="nav-actions">
                 <ul class="nav-links">
                     <li><a href="#home">Home</a></li>
+                    <li><a href="#education">Education</a></li>
                     <li><a href="#skills">Skills</a></li>
                     <li><a href="#projects">Projects</a></li>
                     <li><a href="#certifications">Certifications</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
-                <button id="themeToggle" class="theme-toggle" aria-label="Changer de thème">
+                <button id="themeToggle" class="theme-toggle" aria-label="Change theme">
                     <i class="fa-solid fa-sun"></i>
                     <span>Theme</span>
                 </button>
+                <button id="mobileMenu" class="mobile-menu" aria-label="Mobile menu">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
+        </div>
+        <div id="mobileMenuDropdown" class="mobile-menu-dropdown">
+            <ul class="mobile-nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#certifications">Certifications</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
         </div>
     </div>
 </nav>
@@ -318,15 +51,110 @@
     <div class="container">
         <div class="hero-content">
             <div class="hero-text">
-                <h1>Software Engineer & AI Enthusiast</h1>
+                <h1 class="hero-title">Software Engineer & AI Enthusiast</h1>
                 <p class="subtitle">Computer Engineering Student at ENSIT</p>
-                <p>Passionate about software development, DevOps, and artificial intelligence. Seeking opportunities to apply my technical skills in real-world projects and contribute to innovative solutions.</p>
+                <p class="hero-description">Passionate about software development, DevOps, and artificial intelligence. Seeking opportunities to apply my technical skills in real-world projects and contribute to innovative solutions.</p>
                 <div class="cta-buttons">
                     <a href="#projects" class="btn btn-primary">View My Work</a>
                     <a href="#contact" class="btn btn-secondary">Get In Touch</a>
                 </div>
             </div>
+            <div class="hero-visual">
+                <div class="profile-card floating">
+                    <div class="profile-visual-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Welcome to my portfolio</h3>
+                    <p class="profile-visual-text">Explore my journey in technology</p>
+                    <div class="animated-elements">
+                        <div class="tech-orbit orbit-1">
+                            <i class="devicon-react-original colored"></i>
+                        </div>
+                        <div class="tech-orbit orbit-2">
+                            <i class="devicon-python-plain colored"></i>
+                        </div>
+                        <div class="tech-orbit orbit-3">
+                            <i class="devicon-docker-plain colored"></i>
+                        </div>
+                        <div class="tech-orbit orbit-4">
+                            <i class="devicon-kubernetes-plain colored"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="scroll-indicator">
+        <div class="mouse">
+            <div class="scroll-wheel"></div>
+        </div>
+        <span>Scroll Down</span>
+    </div>
+</section>
 
+<!-- Education Section -->
+<section id="education" class="section education-section">
+    <div class="container">
+        <h2 class="section-title">Education Journey</h2>
+        <div class="education-timeline">
+            <div class="timeline-line"></div>
+
+            <div class="education-item" data-animation="slide-left">
+                <div class="education-year">2025 - Present</div>
+                <div class="education-content">
+                    <div class="education-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="education-details">
+                        <h3>Master's Degree in Computer Science</h3>
+                        <h4>Intelligent Systems (M2)</h4>
+                        <p class="institution">The National Higher School of Engineering of Tunis (ENSIT)</p>
+                        <div class="education-highlights">
+                            <span class="highlight-tag">AI & Machine Learning</span>
+                            <span class="highlight-tag">Advanced Algorithms</span>
+                            <span class="highlight-tag">Research Methods</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="education-item" data-animation="slide-right">
+                <div class="education-year">2023 - Present</div>
+                <div class="education-content">
+                    <div class="education-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <div class="education-details">
+                        <h3>Engineer's Degree in Computer Science</h3>
+                        <h4>Software Engineering & DevOps</h4>
+                        <p class="institution">The National Higher School of Engineering of Tunis (ENSIT)</p>
+                        <div class="education-highlights">
+                            <span class="highlight-tag">Software Architecture</span>
+                            <span class="highlight-tag">DevOps Practices</span>
+                            <span class="highlight-tag">Full-Stack Development</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="education-item" data-animation="slide-left">
+                <div class="education-year">2021 - 2023</div>
+                <div class="education-content">
+                    <div class="education-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <div class="education-details">
+                        <h3>Scientific Preparatory Cycle</h3>
+                        <h4>Mathematics and Physics</h4>
+                        <p class="institution">Higher School of Science and Technology of Hammam Sousse</p>
+                        <div class="education-highlights">
+                            <span class="highlight-tag">Mathematical Foundations</span>
+                            <span class="highlight-tag">Physics Principles</span>
+                            <span class="highlight-tag">Analytical Thinking</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -335,85 +163,76 @@
 <section id="skills" class="section">
     <div class="container">
         <h2 class="section-title">Technical Skills</h2>
-
         <div class="skills-grid">
-            <div class="skill-category">
+            <div class="skill-category" data-animation="fade-up" data-delay="0">
                 <h3><i class="fas fa-code"></i> Programming Languages</h3>
                 <div class="skill-icons">
-                    <span class="skill-icon"><i class="devicon-c-plain colored"></i><span>C</span></span>
-                    <span class="skill-icon"><i class="devicon-cplusplus-plain colored"></i><span>C++</span></span>
-                    <span class="skill-icon"><i class="devicon-java-plain colored"></i><span>Java</span></span>
-                    <span class="skill-icon"><i class="devicon-python-plain colored"></i><span>Python</span></span>
-                    <span class="skill-icon"><i class="devicon-javascript-plain colored"></i><span>JavaScript</span></span>
-                    <span class="skill-icon"><i class="devicon-typescript-plain colored"></i><span>TypeScript</span></span>
-                    <span class="skill-icon"><i class="devicon-bash-plain colored"></i><span>Bash</span></span>
-                    <span class="skill-icon"><i class="fa-solid fa-microchip"></i><span>Assembly</span></span>
+                    <span class="skill-icon" data-skill="Advanced"><i class="devicon-java-plain colored"></i><span>Java</span></span>
+                    <span class="skill-icon" data-skill="Advanced"><i class="devicon-python-plain colored"></i><span>Python</span></span>
+                    <span class="skill-icon" data-skill="Advanced"><i class="devicon-javascript-plain colored"></i><span>JavaScript</span></span>
+                    <span class="skill-icon" data-skill="Intermediate"><i class="devicon-typescript-plain colored"></i><span>TypeScript</span></span>
+                    <span class="skill-icon" data-skill="Intermediate"><i class="devicon-c-plain colored"></i><span>C</span></span>
+                    <span class="skill-icon" data-skill="Intermediate"><i class="devicon-cplusplus-plain colored"></i><span>C++</span></span>
+                    <span class="skill-icon" data-skill="Basic"><i class="devicon-bash-plain colored"></i><span>Bash</span></span>
                 </div>
             </div>
 
-            <div class="skill-category">
+            <div class="skill-category" data-animation="fade-up" data-delay="100">
                 <h3><i class="fas fa-globe"></i> Web Development</h3>
                 <div class="skill-icons">
-                    <span class="skill-icon"><i class="devicon-angular-plain colored"></i><span>Angular</span></span>
-                    <span class="skill-icon"><i class="devicon-react-original colored"></i><span>React</span></span>
-                    <span class="skill-icon"><i class="devicon-nextjs-original icon-invert-dark"></i><span>Next.js</span></span>
-                    <span class="skill-icon"><i class="devicon-spring-plain colored"></i><span>Spring Boot</span></span>
-                    <span class="skill-icon"><i class="devicon-nodejs-plain colored"></i><span>Node.js</span></span>
-                    <span class="skill-icon"><i class="devicon-express-original icon-invert-dark"></i><span>Express</span></span>
-                    <span class="skill-icon"><i class="devicon-flask-original icon-invert-dark"></i><span>Flask</span></span>
-                    <span class="skill-icon"><i class="devicon-fastapi-plain colored"></i><span>FastAPI</span></span>
+                    <span class="skill-icon" data-skill="Advanced"><i class="devicon-angular-plain colored"></i><span>Angular</span></span>
+                    <span class="skill-icon" data-skill="Advanced"><i class="devicon-react-original colored"></i><span>React</span></span>
+                    <span class="skill-icon" data-skill="Advanced"><i class="devicon-spring-plain colored"></i><span>Spring Boot</span></span>
+                    <span class="skill-icon" data-skill="Advanced"><i class="devicon-nodejs-plain colored"></i><span>Node.js</span></span>
+                    <span class="skill-icon" data-skill="Intermediate"><i class="devicon-nextjs-original icon-invert-dark"></i><span>Next.js</span></span>
+                    <span class="skill-icon" data-skill="Intermediate"><i class="devicon-express-original icon-invert-dark"></i><span>Express</span></span>
+                    <span class="skill-icon" data-skill="Intermediate"><i class="devicon-flask-original icon-invert-dark"></i><span>Flask</span></span>
+                    <span class="skill-icon" data-skill="Basic"><i class="devicon-fastapi-plain colored"></i><span>FastAPI</span></span>
                 </div>
             </div>
 
-            <div class="skill-category">
+            <div class="skill-category" data-animation="fade-up" data-delay="200">
                 <h3><i class="fas fa-database"></i> Databases</h3>
                 <div class="skill-icons">
-                    <span class="skill-icon"><i class="devicon-oracle-original colored"></i><span>Oracle</span></span>
-                    <span class="skill-icon"><i class="devicon-mysql-plain colored"></i><span>MySQL</span></span>
-                    <span class="skill-icon"><i class="devicon-mongodb-plain colored"></i><span>MongoDB</span></span>
-                    <span class="skill-icon"><i class="devicon-postgresql-plain colored"></i><span>PostgreSQL</span></span>
-                    <span class="skill-icon"><i class="devicon-microsoftsqlserver-plain colored"></i><span>SQL Server</span></span>
-                    <span class="skill-icon"><i class="fa-solid fa-code"></i><span>PL/SQL</span></span>
+                    <span class="skill-icon" data-skill="Advanced"><i class="devicon-oracle-original colored"></i><span>Oracle</span></span>
+                    <span class="skill-icon" data-skill="Advanced"><i class="devicon-mongodb-plain colored"></i><span>MongoDB</span></span>
+                    <span class="skill-icon" data-skill="Intermediate"><i class="devicon-mysql-plain colored"></i><span>MySQL</span></span>
+                    <span class="skill-icon" data-skill="Intermediate"><i class="devicon-postgresql-plain colored"></i><span>PostgreSQL</span></span>
+                    <span class="skill-icon" data-skill="Intermediate"><i class="devicon-microsoftsqlserver-plain colored"></i><span>SQL Server</span></span>
                 </div>
             </div>
 
-            <div class="skill-category">
+            <div class="skill-category" data-animation="fade-up" data-delay="300">
                 <h3><i class="fas fa-robot"></i> AI & Machine Learning</h3>
                 <div class="skill-icons">
-                    <span class="skill-icon"><i class="devicon-tensorflow-original colored"></i><span>TensorFlow</span></span>
-                    <span class="skill-icon"><i class="devicon-pytorch-original colored"></i><span>PyTorch</span></span>
-                    <span class="skill-icon"><i class="devicon-opencv-plain colored"></i><span>OpenCV</span></span>
-                    <span class="skill-icon"><i class="devicon-scikitlearn-plain colored"></i><span>Scikit-learn</span></span>
-                    <span class="skill-icon"><i class="fa-solid fa-diagram-project"></i><span>GANs</span></span>
-                    <span class="skill-icon"><i class="fa-solid fa-language"></i><span>NLP</span></span>
-                    <span class="skill-icon"><i class="fa-regular fa-eye"></i><span>Computer Vision</span></span>
-                    <span class="skill-icon"><i class="devicon-azure-plain colored"></i><span>Azure AI</span></span>
+                    <span class="skill-icon" data-skill="Advanced"><i class="devicon-tensorflow-original colored"></i><span>TensorFlow</span></span>
+                    <span class="skill-icon" data-skill="Advanced"><i class="devicon-pytorch-original colored"></i><span>PyTorch</span></span>
+                    <span class="skill-icon" data-skill="Advanced"><i class="devicon-opencv-plain colored"></i><span>OpenCV</span></span>
+                    <span class="skill-icon" data-skill="Intermediate"><i class="devicon-scikitlearn-plain colored"></i><span>Scikit-learn</span></span>
+                    <span class="skill-icon" data-skill="Intermediate"><i class="devicon-azure-plain colored"></i><span>Azure AI</span></span>
+                    <span class="skill-icon" data-skill="Basic"><i class="fa-solid fa-diagram-project"></i><span>GANs</span></span>
                 </div>
             </div>
 
-            <div class="skill-category">
-                <h3><i class="fas fa-cogs"></i> DevOps & Tools</h3>
+            <div class="skill-category" data-animation="fade-up" data-delay="400">
+                <h3><i class="fas fa-cogs"></i> DevOps & Cloud</h3>
                 <div class="skill-icons">
-                    <span class="skill-icon"><i class="devicon-docker-plain colored"></i><span>Docker</span></span>
-                    <span class="skill-icon"><i class="devicon-kubernetes-plain colored"></i><span>Kubernetes</span></span>
-                    <span class="skill-icon"><i class="devicon-jenkins-plain colored"></i><span>Jenkins</span></span>
-                    <span class="skill-icon"><i class="devicon-git-plain colored"></i><span>Git</span></span>
-                    <span class="skill-icon"><i class="devicon-github-original colored"></i><span>GitHub Actions</span></span>
-                    <span class="skill-icon"><i class="devicon-helm-plain colored"></i><span>Helm</span></span>
-                    <span class="skill-icon"><i class="devicon-sonarqube-plain colored"></i><span>SonarQube</span></span>
-                    <span class="skill-icon"><i class="devicon-snyk-original colored"></i><span>Snyk</span></span>
+                    <span class="skill-icon" data-skill="Advanced"><i class="devicon-docker-plain colored"></i><span>Docker</span></span>
+                    <span class="skill-icon" data-skill="Advanced"><i class="devicon-kubernetes-plain colored"></i><span>Kubernetes</span></span>
+                    <span class="skill-icon" data-skill="Advanced"><i class="devicon-jenkins-plain colored"></i><span>Jenkins</span></span>
+                    <span class="skill-icon" data-skill="Intermediate"><i class="devicon-terraform-plain colored"></i><span>Terraform</span></span>
+                    <span class="skill-icon" data-skill="Intermediate"><i class="devicon-ansible-plain colored"></i><span>Ansible</span></span>
+                    <span class="skill-icon" data-skill="Basic"><i class="devicon-argocd-plain colored"></i><span>Argo CD</span></span>
                 </div>
             </div>
 
-            <div class="skill-category">
-                <h3><i class="fas fa-chart-bar"></i> Business Intelligence</h3>
+            <div class="skill-category" data-animation="fade-up" data-delay="500">
+                <h3><i class="fas fa-shield-alt"></i> Security & Quality</h3>
                 <div class="skill-icons">
-                    <span class="skill-icon"><i class="devicon-visualstudio-plain colored"></i><span>Visual Studio</span></span>
-                    <span class="skill-icon"><i class="devicon-matplotlib-plain colored"></i><span>Matplotlib</span></span>
-                    <span class="skill-icon"><i class="fa-solid fa-database"></i><span>SSIS</span></span>
-                    <span class="skill-icon"><i class="fa-solid fa-cubes"></i><span>SSAS</span></span>
-                    <span class="skill-icon"><i class="fa-solid fa-chart-line"></i><span>Data Analysis</span></span>
-                    <span class="skill-icon"><i class="fa-solid fa-chart-pie"></i><span>Data Visualization</span></span>
+                    <span class="skill-icon" data-skill="Advanced"><i class="devicon-sonarqube-plain colored"></i><span>SonarQube</span></span>
+                    <span class="skill-icon" data-skill="Intermediate"><i class="devicon-snyk-original colored"></i><span>Snyk</span></span>
+                    <span class="skill-icon" data-skill="Intermediate"><i class="fa-solid fa-bug"></i><span>Trivy</span></span>
+                    <span class="skill-icon" data-skill="Basic"><i class="fa-solid fa-key"></i><span>Gitleaks</span></span>
                 </div>
             </div>
         </div>
@@ -425,13 +244,15 @@
     <div class="container">
         <h2 class="section-title">Featured Projects</h2>
         <div class="projects-grid">
-            <div class="project-card">
+            <div class="project-card" data-animation="fade-up" data-delay="0">
                 <div class="project-header">
                     <div>
                         <h3 class="project-title">Jenkins Pipeline Optimization for Microservices</h3>
                         <p class="project-company">Internship at Elyadata, 2025</p>
                     </div>
-
+                    <div class="project-status">
+                        <span class="status-badge completed">Completed</span>
+                    </div>
                 </div>
                 <div class="tech-icons">
                     <span class="tech-icon"><i class="devicon-jenkins-plain colored"></i><span>Jenkins</span></span>
@@ -439,67 +260,71 @@
                     <span class="tech-icon"><i class="devicon-helm-plain colored"></i><span>Helm</span></span>
                     <span class="tech-icon"><i class="devicon-spring-plain colored"></i><span>Spring Boot</span></span>
                     <span class="tech-icon"><i class="devicon-docker-plain colored"></i><span>Docker</span></span>
-                    <span class="tech-icon"><i class="fa-solid fa-diagram-project"></i><span>Gradle</span></span>
                 </div>
                 <div class="project-description">
                     <ul>
                         <li>Applied advanced build strategies to reduce build times and improve pipeline efficiency</li>
-                        <li>Leveraged Kubernetes agents for container orchestration and Helm for deployment management</li>
-                        <li>Implemented parallel builds, caching, and incremental compilation to optimize Gradle builds</li>
-                        <li>Integrated Trivy for container vulnerability scanning and SonarQube for static code analysis</li>
-                        <li>Ensured scalable, reliable, and maintainable pipeline execution for complex microservices architecture</li>
+                        <li>Achieved <strong>62% reduction</strong> in CI/CD pipeline build times through optimization strategies</li>
+                        <li>Integrated comprehensive security scanning with Trivy and SonarQube for code analysis</li>
+                        <li>Implemented parallel builds, caching, and incremental compilation for Gradle builds</li>
                     </ul>
+                </div>
+                <div class="project-metrics">
+                    <div class="metric">
+                        <span class="metric-value">62%</span>
+                        <span class="metric-label">Build Time Reduction</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="project-card">
+            <div class="project-card" data-animation="fade-up" data-delay="200">
                 <div class="project-header">
                     <div>
                         <h3 class="project-title">Marketing Automation Platform</h3>
                         <p class="project-company">Internship at Welyne, 2025</p>
                     </div>
-
+                    <div class="project-status">
+                        <span class="status-badge completed">Completed</span>
+                    </div>
                 </div>
                 <div class="tech-icons">
                     <span class="tech-icon"><i class="devicon-mongodb-plain colored"></i><span>MongoDB</span></span>
                     <span class="tech-icon"><i class="devicon-express-original icon-invert-dark"></i><span>Express</span></span>
                     <span class="tech-icon"><i class="devicon-react-original colored"></i><span>React</span></span>
                     <span class="tech-icon"><i class="devicon-nodejs-plain colored"></i><span>Node.js</span></span>
-                    <span class="tech-icon"><i class="fa-regular fa-envelope"></i><span>SMTP</span></span>
-                    <span class="tech-icon"><i class="fa-solid fa-paper-plane"></i><span>SendGrid</span></span>
                 </div>
                 <div class="project-description">
                     <ul>
-                        <li>Analyzed and benchmarked existing tools (Mailchimp, Brevo, HubSpot) to define MVP features</li>
-                        <li>Defined user personas (marketer, customer, admin) and drafted functional specifications</li>
-                        <li>Implemented back-end APIs for managing contacts, campaigns, and workflows</li>
-                        <li>Developed front-end interfaces for campaign creation, dashboards, and workflow editor</li>
-                        <li>Built tracking features for KPIs with visualizations in the dashboard</li>
+                        <li>Developed full-stack marketing automation platform with MERN stack</li>
+                        <li>Built RESTful APIs for campaign management and workflow orchestration</li>
+                        <li>Created intuitive drag-and-drop editor for campaign creation</li>
+                        <li>Integrated third-party email services (SendGrid/Brevo API)</li>
                     </ul>
                 </div>
             </div>
 
-            <div class="project-card">
+            <div class="project-card" data-animation="fade-up" data-delay="400">
                 <div class="project-header">
                     <div>
-                        <h3 class="project-title">Web Content Creation Platform</h3>
-                        <p class="project-company">PFA Project with Focus Corporation</p>
+                        <h3 class="project-title">Cloud-Native DevSecOps Platform</h3>
+                        <p class="project-company">Personal Project, 2025</p>
                     </div>
-
+                    <div class="project-status">
+                        <span class="status-badge in-progress">In Progress</span>
+                    </div>
                 </div>
                 <div class="tech-icons">
-                    <span class="tech-icon"><i class="devicon-angular-plain colored"></i><span>Angular</span></span>
                     <span class="tech-icon"><i class="devicon-spring-plain colored"></i><span>Spring Boot</span></span>
-                    <span class="tech-icon"><i class="devicon-mongodb-plain colored"></i><span>MongoDB</span></span>
-                    <span class="tech-icon"><i class="fa-solid fa-key"></i><span>JWT</span></span>
+                    <span class="tech-icon"><i class="devicon-kubernetes-plain colored"></i><span>Kubernetes</span></span>
+                    <span class="tech-icon"><i class="devicon-terraform-plain colored"></i><span>Terraform</span></span>
+                    <span class="tech-icon"><i class="devicon-ansible-plain colored"></i><span>Ansible</span></span>
                 </div>
                 <div class="project-description">
                     <ul>
-                        <li>Developed a platform for dynamic website creation without coding knowledge</li>
-                        <li>Implemented drag-and-drop interface for building custom layouts</li>
-                        <li>Created content management features and real-time site preview</li>
-                        <li>Built robust backend with Spring Boot for data storage and user authentication</li>
-                        <li>Designed smooth user experience with Angular frontend</li>
+                        <li>Architected end-to-end cloud-native platform with microservices architecture</li>
+                        <li>Implemented Infrastructure as Code (IaC) with Terraform and Ansible</li>
+                        <li>Established CI/CD pipelines with Jenkins and GitOps delivery using Argo CD</li>
+                        <li>Integrated comprehensive monitoring with Grafana and security scanning</li>
                     </ul>
                 </div>
             </div>
@@ -512,86 +337,120 @@
     <div class="container">
         <h2 class="section-title">Certifications</h2>
         <div class="certifications-grid">
-            <div class="certification-card">
+            <div class="certification-card" data-animation="scale-up" data-delay="0">
                 <div class="cert-badge">
-                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/datacamp.svg"
-                         alt="DataCamp"
-                         style="width:48px;height:48px;filter:brightness(0) invert(1);" loading="lazy">
+                    <i class="devicon-oracle-original colored"></i>
                 </div>
-                <h3 class="cert-title">Associate Data Analyst</h3>
-                <p class="cert-provider">DataCamp Certification</p>
-            </div>
-            <div class="certification-card">
-                <div class="cert-badge">
-                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/datacamp.svg"
-                         alt="DataCamp"
-                         style="width:48px;height:48px;filter:brightness(0) invert(1);" loading="lazy">
+                <h3 class="cert-title">Oracle Cloud DevOps Professional</h3>
+                <p class="cert-provider">Oracle Certification - 2025</p>
+                <div class="cert-verification">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Verified</span>
                 </div>
-                <h3 class="cert-title">SQL Associate</h3>
-                <p class="cert-provider">DataCamp Certification</p>
             </div>
-            <div class="certification-card">
+
+            <div class="certification-card" data-animation="scale-up" data-delay="100">
                 <div class="cert-badge">
-                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/datacamp.svg"
-                         alt="DataCamp"
-                         style="width:48px;height:48px;filter:brightness(0) invert(1);" loading="lazy">
-                </div>
-                <h3 class="cert-title">Associate Data Scientist</h3>
-                <p class="cert-provider">DataCamp Certification</p>
-            </div>
-            <div class="certification-card">
-                <div class="cert-badge">
-                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/oracle.svg"
-                         alt="Oracle"
-                         style="width:48px;height:48px;filter:brightness(0) invert(1);" loading="lazy">
+                    <i class="devicon-oracle-original colored"></i>
                 </div>
                 <h3 class="cert-title">Oracle Cloud AI Foundations</h3>
-                <p class="cert-provider">Oracle Certification</p>
+                <p class="cert-provider">Oracle Certification - 2025</p>
+                <div class="cert-verification">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Verified</span>
+                </div>
             </div>
-            <div class="certification-card">
+
+            <div class="certification-card" data-animation="scale-up" data-delay="200">
                 <div class="cert-badge">
-                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/github.svg"
-                         alt="GitHub"
-                         style="width:48px;height:48px;filter:brightness(0) invert(1);" loading="lazy">
+                    <i class="fab fa-github"></i>
                 </div>
                 <h3 class="cert-title">GitHub Advanced Security</h3>
                 <p class="cert-provider">GitHub Certification</p>
-            </div>
-            <div class="certification-card">
-                <div class="cert-badge">
-                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/oracle.svg"
-                         alt="Oracle"
-                         style="width:48px;height:48px;filter:brightness(0) invert(1);" loading="lazy">
+                <div class="cert-verification">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Verified</span>
                 </div>
-                <h3 class="cert-title">Oracle Cloud DevOps Professional</h3>
-                <p class="cert-provider">Oracle Certification</p>
+            </div>
+
+            <div class="certification-card" data-animation="scale-up" data-delay="300">
+                <div class="cert-badge">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="cert-title">Associate Data Scientist</h3>
+                <p class="cert-provider">DataCamp Certification</p>
+                <div class="cert-verification">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Verified</span>
+                </div>
+            </div>
+
+            <div class="certification-card" data-animation="scale-up" data-delay="400">
+                <div class="cert-badge">
+                    <i class="fas fa-database"></i>
+                </div>
+                <h3 class="cert-title">SQL Associate</h3>
+                <p class="cert-provider">DataCamp Certification</p>
+                <div class="cert-verification">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Verified</span>
+                </div>
+            </div>
+
+            <div class="certification-card" data-animation="scale-up" data-delay="500">
+                <div class="cert-badge">
+                    <i class="fas fa-cloud"></i>
+                </div>
+                <h3 class="cert-title">Multicloud Network Associate</h3>
+                <p class="cert-provider">Aviatrix Certification</p>
+                <div class="cert-verification">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Verified</span>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Contact Section (déplacé en bas) -->
+<!-- Contact Section -->
 <section id="contact" class="section contact-section">
     <div class="container">
-        <h2 class="section-title">Contact</h2>
-        <div class="contact-grid">
-            <div class="contact-card">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>Tunisia, Monfleury</span>
+        <h2 class="section-title">Let's Connect</h2>
+        <div class="contact-content">
+            <div class="contact-text" data-animation="slide-left">
+                <h3>Ready to collaborate?</h3>
+                <p>I'm always open to discussing new opportunities, interesting projects, or just having a chat about technology. Feel free to reach out!</p>
+                <div class="languages">
+                    <h4>Languages:</h4>
+                    <div class="language-tags">
+                        <span class="language-tag">Arabic - Native</span>
+                        <span class="language-tag">French - C1</span>
+                        <span class="language-tag">English - B2</span>
+                    </div>
+                </div>
             </div>
-            <div class="contact-card">
-                <i class="fas fa-envelope"></i>
-                <a href="mailto:inestmimi1234@gmail.com">inestmimi1234@gmail.com</a>
-            </div>
-           
+            <div class="contact-grid" data-animation="slide-right">
+                <div class="contact-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Monfleury, Tunisia</span>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:inestmimi1234@gmail.com">inestmimi1234@gmail.com</a>
+                </div>
 
-            <div class="contact-card">
-                <i class="fab fa-linkedin"></i>
-                <a href="https://www.linkedin.com/in/ines-tmimi/" target="_blank" rel="noopener">linkedin.com/in/inestmimi</a>
-            </div>
-            <div class="contact-card">
-                <i class="fab fa-github"></i>
-                <a href="https://github.com/ines312692" target="_blank" rel="noopener">github.com/inestmimi</a>
+                <div class="contact-card">
+                    <i class="fab fa-linkedin"></i>
+                    <a href="https://www.linkedin.com/in/inestmimi/" target="_blank" rel="noopener">linkedin.com/in/inestmimi</a>
+                </div>
+                <div class="contact-card">
+                    <i class="fab fa-github"></i>
+                    <a href="https://github.com/ines312692" target="_blank" rel="noopener">github.com/inestmimi</a>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-globe"></i>
+                    <a href="#" target="_blank" rel="noopener">Portfolio Website</a>
+                </div>
             </div>
         </div>
     </div>
@@ -600,55 +459,30 @@
 <!-- Footer -->
 <footer>
     <div class="container">
-        <div class="social-links">
-            <a href="https://linkedin.com/in/inestmimi" aria-label="LinkedIn" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
-            <a href="https://github.com/ines312692" aria-label="GitHub" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
-            <a href="mailto:inestmimi1234@gmail.com" aria-label="Email"><i class="fa-regular fa-envelope"></i></a>
-        </div>
-        <div class="footer-copy">
-            © <span id="year"></span> Ines Tmimi. All rights reserved.
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://linkedin.com/in/inestmimi" aria-label="LinkedIn" target="_blank" rel="noopener">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/ines312692" aria-label="GitHub" target="_blank" rel="noopener">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="mailto:inestmimi1234@gmail.com" aria-label="Email">
+                    <i class="fa-regular fa-envelope"></i>
+                </a>
+            </div>
+            <div class="footer-copy">
+                © <span id="year"></span> Ines Tmimi. All rights reserved. | Built with ❤️ and lots of ☕
+            </div>
         </div>
     </div>
 </footer>
 
-<script>
-    (function() {
-        const doc = document.documentElement;
-        const toggle = document.getElementById('themeToggle');
-        const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-        const saved = localStorage.getItem('theme');
-        const initial = saved || (prefersLight ? 'light' : 'dark');
+<!-- Back to Top Button -->
+<button id="backToTop" class="back-to-top" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+</button>
 
-        function setTheme(theme) {
-            doc.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
-            const icon = toggle.querySelector('i');
-            if (theme === 'light') {
-                icon.className = 'fa-regular fa-moon';
-            } else {
-                icon.className = 'fa-solid fa-sun';
-            }
-        }
-
-        function toggleTheme() {
-            setTheme(doc.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-        }
-
-        setTheme(initial);
-        toggle.addEventListener('click', toggleTheme);
-
-        // Navbar shadow on scroll
-        const navbar = document.getElementById('navbar');
-        const onScroll = () => {
-            if (window.scrollY > 10) navbar.classList.add('scrolled');
-            else navbar.classList.remove('scrolled');
-        };
-        onScroll();
-        window.addEventListener('scroll', onScroll);
-
-        // Footer year
-        document.getElementById('year').textContent = new Date().getFullYear();
-    })();
-</script>
+<script src="index.js"></script>
 </body>
 </html>
