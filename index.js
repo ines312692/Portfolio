@@ -1,3 +1,32 @@
+// Theme Toggle Functionality
+const themeToggle = document.createElement('button');
+themeToggle.className = 'theme-toggle';
+themeToggle.id = 'themeToggle';
+themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+document.body.appendChild(themeToggle);
+
+// Initialize theme from localStorage
+const savedTheme = localStorage.getItem('theme') || 'dark';
+document.documentElement.setAttribute('data-theme', savedTheme);
+
+// Update toggle icon based on theme
+function updateThemeIcon() {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    themeToggle.innerHTML = isDark ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+}
+
+updateThemeIcon();
+
+// Toggle theme on button click
+themeToggle.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon();
+});
+
 // Loading Animation
 window.addEventListener('load', () => {
     const loader = document.getElementById('loader');
@@ -97,4 +126,4 @@ document.querySelectorAll('.tech-item').forEach(item => {
     });
 });
 
-console.log('Portfolio Ines Tmimi - Fully Initialized');
+console.log('Portfolio Ines Tmimi - Light/Dark Mode Enabled');
