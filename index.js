@@ -1,3 +1,11 @@
+// Loading Animation
+window.addEventListener('load', () => {
+    const loader = document.getElementById('loader');
+    setTimeout(() => {
+        loader.classList.add('hidden');
+    }, 900);
+});
+
 // Navigation Scroll Effect
 const navbar = document.getElementById('navbar');
 const hamburger = document.getElementById('hamburger');
@@ -74,7 +82,7 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 // Observe all elements with animation
-document.querySelectorAll('.education-card, .skill-category, .cert-card').forEach(el => {
+document.querySelectorAll('.education-card, .skill-category, .cert-card, .project-card, .timeline-item').forEach(el => {
     observer.observe(el);
 });
 

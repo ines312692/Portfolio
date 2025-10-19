@@ -19,6 +19,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
+<!-- Loading Animation -->
+<div class="loader" id="loader">
+    <div class="loader-content">
+        <div class="spinner"></div>
+        <div class="loader-text">Loading...</div>
+    </div>
+</div>
+
 <!-- Animated Background Blobs -->
 <div class="blob blob-1"></div>
 <div class="blob blob-2"></div>
@@ -29,6 +37,11 @@
     <div class="container">
         <div class="nav-wrapper">
             <div class="logo">Ines Tmimi</div>
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#education">Education</a></li>
@@ -38,11 +51,6 @@
                 <li><a href="#certifications">Certifications</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
         </div>
     </div>
 </nav>
@@ -52,7 +60,7 @@
     <div class="container">
         <div class="hero-content">
             <div class="hero-text">
-                <h1>DevOps & Cloud Practitioner </h1>
+                <h1>DevOps & Cloud Practitioner</h1>
                 <p class="subtitle">Building scalable cloud-native solutions</p>
                 <p>Computer Engineering student at ENSIT specializing in Software Engineering and DevOps. Creating efficient, innovative solutions through cutting-edge technology and best practices.</p>
                 <div class="cta-buttons">
@@ -63,20 +71,20 @@
             <div class="hero-visual">
                 <div class="floating-card card-1">
                     <h3>DevOps Specialist</h3>
-                    <div class="floating-logos" style="display:flex;gap:0.8rem;align-items:center;margin-top:0.6rem;">
-                        <i class="devicon-kubernetes-plain" title="Kubernetes" style="font-size:1.6rem;color:var(--primary)"></i>
-                        <i class="fab fa-docker" title="Docker" style="font-size:1.6rem;color:var(--primary)"></i>
-                        <i class="fab fa-jenkins" title="Jenkins" style="font-size:1.6rem;color:var(--primary)"></i>
-                        <i class="devicon-terraform-plain" title="Terraform" style="font-size:1.6rem;color:var(--primary)"></i>
+                    <div class="floating-logos">
+                        <i class="devicon-kubernetes-plain" title="Kubernetes"></i>
+                        <i class="fab fa-docker" title="Docker"></i>
+                        <i class="fab fa-jenkins" title="Jenkins"></i>
+                        <i class="devicon-terraform-plain" title="Terraform"></i>
                     </div>
                 </div>
                 <div class="floating-card card-2">
                     <h3>Full-Stack Developer</h3>
-                    <div class="floating-logos" style="display:flex;gap:0.8rem;align-items:center;margin-top:0.6rem;">
-                        <i class="devicon-react-original" title="React" style="font-size:1.6rem;color:var(--primary)"></i>
-                        <i class="devicon-nodejs-plain" title="Node.js" style="font-size:1.6rem;color:var(--primary)"></i>
-                        <i class="devicon-spring-original" title="Spring Boot" style="font-size:1.6rem;color:var(--primary)"></i>
-                        <i class="devicon-mongodb-plain" title="MongoDB" style="font-size:1.6rem;color:var(--primary)"></i>
+                    <div class="floating-logos">
+                        <i class="devicon-react-original" title="React"></i>
+                        <i class="devicon-nodejs-plain" title="Node.js"></i>
+                        <i class="devicon-spring-original" title="Spring Boot"></i>
+                        <i class="devicon-mongodb-plain" title="MongoDB"></i>
                     </div>
                 </div>
             </div>
@@ -89,7 +97,7 @@
     <div class="container">
         <h2 class="section-title">Education Journey</h2>
         <div class="education-grid">
-            <div class="education-card" style="animation-delay: 0s">
+            <div class="education-card">
                 <h3>Master's Degree in Computer Science</h3>
                 <div class="degree">Intelligent Systems (M2)</div>
                 <div class="institution">The National Higher School of Engineering of Tunis (ENSIT)</div>
@@ -102,7 +110,7 @@
                 </div>
             </div>
 
-            <div class="education-card" style="animation-delay: 0.1s">
+            <div class="education-card">
                 <h3>Engineer's Degree in Computer Science</h3>
                 <div class="degree">Software Engineering & DevOps Specialization</div>
                 <div class="institution">The National Higher School of Engineering of Tunis (ENSIT)</div>
@@ -115,7 +123,7 @@
                 </div>
             </div>
 
-            <div class="education-card" style="animation-delay: 0.2s">
+            <div class="education-card">
                 <h3>Scientific Preparatory Cycle</h3>
                 <div class="degree">Mathematics & Physics</div>
                 <div class="institution">Higher School of Science and Technology of Hammam Sousse</div>
@@ -130,12 +138,13 @@
         </div>
     </div>
 </section>
+
 <!-- Experience Section -->
 <section id="experience" class="experience">
     <div class="container">
         <h2 class="section-title">Professional Experience</h2>
         <div class="timeline">
-            <div class="timeline-item" style="animation-delay: 0s">
+            <div class="timeline-item">
                 <div class="timeline-content">
                     <h3>DevOps Engineer Intern</h3>
                     <p class="company">Elyadata • 2025</p>
@@ -154,7 +163,7 @@
                 </div>
             </div>
 
-            <div class="timeline-item" style="animation-delay: 0.2s">
+            <div class="timeline-item">
                 <div class="timeline-content">
                     <h3>Full-Stack Developer Intern</h3>
                     <p class="company">Welyne • 2025</p>
@@ -176,81 +185,84 @@
     </div>
 </section>
 
+<!-- Skills Section -->
 <section id="skills" class="skills">
     <div class="container">
         <h2 class="section-title">Technical Skills</h2>
         <div class="skills-grid">
-            <div class="skill-category" style="animation-delay: 0s">
+            <div class="skill-category">
                 <h3>Programming Languages</h3>
                 <div class="tech-logos">
-                    <div class="tech-item" title="Java"><i class="devicon-java-plain" style="color:var(--primary);font-size:2rem;"></i><span>Java</span></div>
-                    <div class="tech-item" title="Python"><i class="devicon-python-plain" style="color:var(--primary);font-size:2rem;"></i><span>Python</span></div>
-                    <div class="tech-item" title="JavaScript"><i class="devicon-javascript-plain" style="color:var(--primary);font-size:2rem;"></i><span>JavaScript</span></div>
-                    <div class="tech-item" title="TypeScript"><i class="devicon-typescript-plain" style="color:var(--primary);font-size:2rem;"></i><span>TypeScript</span></div>
+                    <div class="tech-item" title="Java"><i class="devicon-java-plain"></i><span>Java</span></div>
+                    <div class="tech-item" title="Python"><i class="devicon-python-plain"></i><span>Python</span></div>
+                    <div class="tech-item" title="JavaScript"><i class="devicon-javascript-plain"></i><span>JavaScript</span></div>
+                    <div class="tech-item" title="TypeScript"><i class="devicon-typescript-plain"></i><span>TypeScript</span></div>
                 </div>
             </div>
 
-            <div class="skill-category" style="animation-delay: 0.1s">
+            <div class="skill-category">
                 <h3>Backend & Frameworks</h3>
                 <div class="tech-logos">
-                    <div class="tech-item" title="Spring Boot"><i class="devicon-spring-original" style="color:var(--primary);font-size:2rem;"></i><span>Spring Boot</span></div>
-                    <div class="tech-item" title="Node.js"><i class="devicon-nodejs-plain" style="color:var(--primary);font-size:2rem;"></i><span>Node.js</span></div>
-                    <div class="tech-item" title="FastAPI"><i class="devicon-python-plain" style="color:var(--primary);font-size:2rem;"></i><span>FastAPI</span></div>
-                    <div class="tech-item" title="Express"><i class="devicon-express-original" style="color:var(--primary);font-size:2rem;"></i><span>Express</span></div>
+                    <div class="tech-item" title="Spring Boot"><i class="devicon-spring-original"></i><span>Spring Boot</span></div>
+                    <div class="tech-item" title="Node.js"><i class="devicon-nodejs-plain"></i><span>Node.js</span></div>
+                    <div class="tech-item" title="FastAPI"><i class="devicon-python-plain"></i><span>FastAPI</span></div>
+                    <div class="tech-item" title="Express"><i class="devicon-express-original"></i><span>Express</span></div>
                 </div>
             </div>
 
-            <div class="skill-category" style="animation-delay: 0.2s">
+            <div class="skill-category">
                 <h3>DevOps & Cloud</h3>
                 <div class="tech-logos">
-                    <div class="tech-item" title="Kubernetes"><i class="devicon-kubernetes-plain" style="color: var(--primary);"></i><span>Kubernetes</span></div>
-                    <div class="tech-item" title="Helm"><i class="devicon-helm-plain" style="color: var(--primary);"></i><span>Helm</span></div>
-                    <div class="tech-item" title="Argo CD"><i class="devicon-argocd-plain" alt="Argo CD" style="color: var(--primary);"></i><span>Argo CD</span></div>
-                    <div class="tech-item" title="Ansible"><i class="devicon-ansible-plain" style="color: var(--primary);"></i><span>Ansible</span></div>
+                    <div class="tech-item" title="Kubernetes"><i class="devicon-kubernetes-plain"></i><span>Kubernetes</span></div>
                     <div class="tech-item" title="Docker"><i class="fab fa-docker"></i><span>Docker</span></div>
                     <div class="tech-item" title="Jenkins"><i class="fab fa-jenkins"></i><span>Jenkins</span></div>
-                    <div class="tech-item" title="Terraform"><i class="devicon-terraform-plain" style="color: var(--primary);"></i><span>Terraform</span></div>
+                    <div class="tech-item" title="Terraform"><i class="devicon-terraform-plain"></i><span>Terraform</span></div>
                     <div class="tech-item" title="AWS"><i class="fab fa-aws"></i><span>AWS</span></div>
+                    <div class="tech-item" title="Ansible"><i class="devicon-ansible-plain"></i><span>Ansible</span></div>
+                    <div class="tech-item" title="Helm"><i class="devicon-helm-plain"></i><span>Helm</span></div>
+                    <div class="tech-item" title="Argo CD"><i class="devicon-argocd-plain"></i><span>Argo CD</span></div>
                 </div>
             </div>
 
-            <div class="skill-category" style="animation-delay: 0.3s">
+            <div class="skill-category">
                 <h3>Frontend</h3>
                 <div class="tech-logos">
-                    <div class="tech-item" title="React"><i class="devicon-react-original" style="color: var(--primary); font-size:2rem;"></i><span>React</span></div>
-                    <div class="tech-item" title="Angular"><i class="devicon-angularjs-plain" style="color: var(--primary); font-size:2rem;"></i><span>Angular</span></div>
-                    <div class="tech-item" title="TypeScript"><i class="devicon-typescript-plain" style="color: var(--primary); font-size:2rem;"></i><span>TypeScript</span></div>
-                    <div class="tech-item" title="Next.js"><i class="devicon-nextjs-original-wordmark" style="color: var(--primary); font-size:2rem;"></i><span>Next.js</span></div>
+                    <div class="tech-item" title="React"><i class="devicon-react-original"></i><span>React</span></div>
+                    <div class="tech-item" title="Angular"><i class="devicon-angularjs-plain"></i><span>Angular</span></div>
+                    <div class="tech-item" title="TypeScript"><i class="devicon-typescript-plain"></i><span>TypeScript</span></div>
+                    <div class="tech-item" title="Next.js"><i class="devicon-nextjs-original-wordmark"></i><span>Next.js</span></div>
                 </div>
             </div>
 
-            <div class="skill-category" style="animation-delay: 0.4s">
+            <div class="skill-category">
                 <h3>Databases</h3>
                 <div class="tech-logos">
-                    <div class="tech-item" title="MongoDB"><i class="devicon-mongodb-plain colored" style="color: var(--primary);"></i><span>MongoDB</span></div>
-                    <div class="tech-item" title="PostgreSQL"><i class="devicon-postgresql-plain colored" style="color: var(--primary);"></i><span>PostgreSQL</span></div>
-                    <div class="tech-item" title="MySQL"><i class="devicon-mysql-plain colored" style="color: var(--primary);"></i><span>MySQL</span></div>
-                    <div class="tech-item" title="Oracle"><i class="devicon-oracle-original colored" style="color: var(--primary);"></i><span>Oracle</span></div>
+                    <div class="tech-item" title="MongoDB"><i class="devicon-mongodb-plain"></i><span>MongoDB</span></div>
+                    <div class="tech-item" title="PostgreSQL"><i class="devicon-postgresql-plain"></i><span>PostgreSQL</span></div>
+                    <div class="tech-item" title="MySQL"><i class="devicon-mysql-plain"></i><span>MySQL</span></div>
+                    <div class="tech-item" title="Oracle"><i class="devicon-oracle-original"></i><span>Oracle</span></div>
                 </div>
             </div>
 
-            <div class="skill-category" style="animation-delay: 0.5s">
+            <div class="skill-category">
                 <h3>AI & Machine Learning</h3>
                 <div class="tech-logos">
-                    <div class="tech-item" title="TensorFlow"><i class="devicon-tensorflow-original colored" style="color: var(--primary);"></i><span>TensorFlow</span></div>
-                    <div class="tech-item" title="PyTorch"><i class="devicon-pytorch-original colored" style="color: var(--primary);"></i><span>PyTorch</span></div>
-                    <div class="tech-item" title="Scikit-learn"><i class="devicon-python-plain" style="color: var(--primary);"></i><span>Scikit-learn</span></div>
-                    <div class="tech-item" title="OpenCV"><i class="devicon-python-plain" style="color: var(--primary);"></i><span>OpenCV</span></div>
+                    <div class="tech-item" title="TensorFlow"><i class="devicon-tensorflow-original"></i><span>TensorFlow</span></div>
+                    <div class="tech-item" title="PyTorch"><i class="devicon-pytorch-original"></i><span>PyTorch</span></div>
+                    <div class="tech-item" title="Scikit-learn"><i class="devicon-python-plain"></i><span>Scikit-learn</span></div>
+                    <div class="tech-item" title="OpenCV"><i class="devicon-python-plain"></i><span>OpenCV</span></div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<!-- Projects Section -->
 <section id="projects" class="projects">
     <div class="container">
         <h2 class="section-title">Featured Projects</h2>
         <div class="projects-grid">
-            <div class="project-card" style="animation-delay: 0s">
+            <div class="project-card">
                 <div class="project-header">
                     <h3>Jenkins Pipeline Optimization</h3>
                     <span class="status-badge">Completed</span>
@@ -270,7 +282,7 @@
                 </div>
             </div>
 
-            <div class="project-card" style="animation-delay: 0.15s">
+            <div class="project-card">
                 <div class="project-header">
                     <h3>Marketing Automation Platform</h3>
                     <span class="status-badge">Completed</span>
@@ -290,7 +302,7 @@
                 </div>
             </div>
 
-            <div class="project-card" style="animation-delay: 0.3s">
+            <div class="project-card">
                 <div class="project-header">
                     <h3>Cloud-Native DevSecOps Platform</h3>
                     <span class="status-badge">Completed</span>
@@ -310,7 +322,7 @@
                 </div>
             </div>
 
-            <div class="project-card" style="animation-delay: 0.45s">
+            <div class="project-card">
                 <div class="project-header">
                     <h3>AI-Powered DevOps Analytics</h3>
                     <span class="status-badge">Completed</span>
@@ -330,7 +342,7 @@
                 </div>
             </div>
 
-            <div class="project-card" style="animation-delay: 0.6s">
+            <div class="project-card">
                 <div class="project-header">
                     <h3>CallCenterAI - Ticket Classification</h3>
                     <span class="status-badge">Completed</span>
@@ -350,7 +362,7 @@
                 </div>
             </div>
 
-            <div class="project-card" style="animation-delay: 0.75s">
+            <div class="project-card">
                 <div class="project-header">
                     <h3>Web Content Creation Platform</h3>
                     <span class="status-badge">Completed</span>
@@ -378,54 +390,52 @@
     <div class="container">
         <h2 class="section-title">Certifications & Achievements</h2>
         <div class="certs-grid">
-            <div class="cert-card" style="animation-delay: 0s">
+            <div class="cert-card">
                 <div class="cert-icon">
-                    <i class="devicon-oracle-original colored" style="font-size: 3rem;"></i>
+                    <i class="devicon-oracle-original"></i>
                 </div>
                 <h3>Oracle Cloud DevOps Professional</h3>
                 <p>Oracle Certification • 2025</p>
             </div>
 
-            <div class="cert-card" style="animation-delay: 0.1s">
+            <div class="cert-card">
                 <div class="cert-icon">
-                    <i class="devicon-oracle-original colored" style="font-size: 3rem;"></i>
+                    <i class="devicon-oracle-original"></i>
                 </div>
                 <h3>Oracle Cloud AI Foundations</h3>
                 <p>Oracle Certification • 2025</p>
             </div>
 
-            <div class="cert-card" style="animation-delay: 0.2s">
+            <div class="cert-card">
                 <div class="cert-icon">
-                    <img src="./logo.png" alt="DataCamp" style="width: 50px; height: auto;" loading="lazy" decoding="async">
-                </div>
-                <h3>Aviatrix Multicloud Network</h3>
-                <p>Aviatrix Certification • 2025</p>
-            </div>
-
-            <div class="cert-card" style="animation-delay: 0.3s">
-                <div class="cert-icon">
-                    <i class="fab fa-github" style="font-size: 3rem; color: #ffffff;"></i>
+                    <i class="fab fa-github"></i>
                 </div>
                 <h3>GitHub Advanced Security</h3>
                 <p>GitHub Certification • 2025</p>
             </div>
 
-
-
-            <div class="cert-card" style="animation-delay: 0.4s">
+            <div class="cert-card">
                 <div class="cert-icon">
-                    <img src="./dataca.png" alt="DataCamp" style="width: 50px; height: auto;" loading="lazy" decoding="async">
+                    <i class="fas fa-database"></i>
                 </div>
                 <h3>DataCamp Associate Data Scientist</h3>
                 <p>DataCamp Certification • 2024</p>
             </div>
 
-            <div class="cert-card" style="animation-delay: 0.5s">
-                <div class="cert-icon" style="background: transparent; background-color: transparent;">
-                    <img src="./dataca.png" alt="DataCamp" style="width: 50px; height: auto; background: transparent; background-color: transparent;" loading="lazy" decoding="async">
+            <div class="cert-card">
+                <div class="cert-icon">
+                    <i class="fas fa-database"></i>
                 </div>
                 <h3>DataCamp SQL Associate</h3>
                 <p>DataCamp Certification • 2024</p>
+            </div>
+
+            <div class="cert-card">
+                <div class="cert-icon">
+                    <i class="fas fa-cloud"></i>
+                </div>
+                <h3>Aviatrix Multicloud Network</h3>
+                <p>Aviatrix Certification • 2025</p>
             </div>
         </div>
     </div>
@@ -447,13 +457,12 @@
                 </a>
                 <a href="https://www.linkedin.com/in/ines-tmimi/" target="_blank" class="contact-link">
                     <i class="fab fa-linkedin"></i>
-                    <span>linkedin.com/in/inestmimi</span>
+                    <span>linkedin.com/in/ines-tmimi</span>
                 </a>
                 <a href="https://github.com/ines312692" target="_blank" class="contact-link">
                     <i class="fab fa-github"></i>
-                    <span>github.com/inestmimi</span>
+                    <span>github.com/ines312692</span>
                 </a>
-
             </div>
         </div>
     </div>
@@ -470,3 +479,7 @@
 <button class="back-to-top" id="backToTop">
     <i class="fas fa-arrow-up"></i>
 </button>
+
+<script src="index.js"></script>
+</body>
+</html>
